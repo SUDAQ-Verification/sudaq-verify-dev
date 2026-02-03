@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SUDAQ Certificate Verification</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;padding:40px}
+.card{background:#fff;padding:20px;border-radius:10px;max-width:800px;margin:auto;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+input{padding:10px;width:70%;margin-right:10px}
+button{padding:10px}
+.result{margin-top:20px;padding:15px;border-radius:8px}
+.ok{background:#e7f8ec;border:1px solid #86efac}
+.bad{background:#fde8e8;border:1px solid #fca5a5}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>SUDAQ Certificate Verification</h2>
+<input id="cid" placeholder="Enter Certificate ID"/>
+<button onclick="verify()">Verify</button>
+<div id="out" class="result" style="display:none;"></div>
+</div>
+
+<script>
+const files = [
+ 'certificates-medicalbooth-jan2026.json',
+ 'certificates-ebcp-jan2026.json',
+ 'certificates-megamedicalcamp-jan2026.json'
+];
+
+async function loadAll(){
+ let all=[];
+ for(const f of files){
+   try{
+     const res=await fetch(f);
+     if(res.ok){
+       const data=await res.json();
+       all=all.concat(data);
+     }
+   }catch(e){}
+ }
+ return all;
+}
+
+async function verify(){
+ const id=document.getElementById('cid').value.trim().toUpperCase();
+ const out=document.getElementById('out');
+ const data=await loadAll();
+ const r=data.find(x=>x.certificate_id.toUpperCase()===id);
+ out.style.display="block";
+ if(!r){
+   out.className="result bad";
+   out.innerHTML="<b>Not verified.</b>";
+ }else{
+   out.className="result ok";
+   out.innerHTML=`<b>Verified ✅</b><br>
+   Recipient: ${r.recipient}<br>
+   Event: ${r.event}<br>
+   Dates: ${r.dates}<br>
+   Issued: ${r.issued}`;
+ }
+}
+</script>
+</body>
+</html>
