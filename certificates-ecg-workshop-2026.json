@@ -1,0 +1,20 @@
+[
+  {
+    "certificate_id": "SUDAQ-ECG-2026-PRHG7R",
+    "recipient": "Dr. Samah Awouda",
+    "category": "Speaker",
+    "event": "ECG Workshop Day",
+    "dates": "18 April 2026",
+    "issued": "18 April 2026",
+    "issuer": "SUDAQ"
+  },
+  {
+    "certificate_id": "SUDAQ-ECG-2026-DJEEII",
+    "recipient": "Dr. Salma Suliman Ibnouf",
+    "category": "Speaker",
+    "event": "ECG Workshop Day",
+    "dates": "18 April 2026",
+    "issued": "18 April 2026",
+    "issuer": "SUDAQ"
+  }
+]
